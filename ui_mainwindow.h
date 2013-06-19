@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Wed Jun 19 08:50:45 2013
+** Created: Thu Jun 20 01:11:49 2013
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -15,7 +15,6 @@
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
@@ -32,7 +31,6 @@ public:
     QWidget *centralWidget;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
-    QLabel *label;
     QMenuBar *menuBar;
     QMenu *menuFemeie_sau_b_rbat;
     QToolBar *mainToolBar;
@@ -42,7 +40,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(400, 300);
+        MainWindow->resize(525, 120);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         pushButton = new QPushButton(centralWidget);
@@ -51,13 +49,10 @@ public:
         pushButton_2 = new QPushButton(centralWidget);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
         pushButton_2->setGeometry(QRect(229, 20, 121, 26));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(50, 100, 301, 16));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 400, 23));
+        menuBar->setGeometry(QRect(0, 0, 525, 25));
         menuFemeie_sau_b_rbat = new QMenu(menuBar);
         menuFemeie_sau_b_rbat->setObjectName(QString::fromUtf8("menuFemeie_sau_b_rbat"));
         MainWindow->setMenuBar(menuBar);
@@ -80,7 +75,6 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0, QApplication::UnicodeUTF8));
         pushButton->setText(QApplication::translate("MainWindow", "Detecteaz\304\203 de pe webcam", 0, QApplication::UnicodeUTF8));
         pushButton_2->setText(QApplication::translate("MainWindow", "\303\216ncarc\304\203 fotografie", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("MainWindow", "Rezultat:", 0, QApplication::UnicodeUTF8));
         menuFemeie_sau_b_rbat->setTitle(QApplication::translate("MainWindow", "Femeie sau b\304\203rbat?", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

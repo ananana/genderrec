@@ -5,8 +5,6 @@
 #include "opencv2/highgui/highgui.hpp"
 #include <opencv2/ml/ml.hpp>
 
-#include "mainwindow.h"
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -407,6 +405,16 @@ Mat FaceRec::predict_from_webcam(){
             int c = waitKey(5);
             if( (char)c == 'q' ) { break; }
 
+            std::string gender;
+            if (label == 0)
+                gender = "femeie";
+            else
+                gender = "barbat";
+
+            putText(frame, gender, cvPoint(frame.cols/2-10,frame.rows-10),
+                FONT_HERSHEY_COMPLEX_SMALL, 0.8, cvScalar(200,200,250), 1, CV_AA);
+
+
             imshow( "Fata ta aici", frame );
 
         }
@@ -418,14 +426,16 @@ Mat FaceRec::predict_from_webcam(){
 
 }
 
-Mat FaceRec::predict_from_picture(Mat picture) {
+Mat FaceRec::predict_from_picture(Mat picture, int& label) {
     Mat picture_gray, picture_resized;
     //picture_gray = picture;
     cvtColor( picture, picture_gray, CV_BGR2GRAY );
     equalizeHist( picture_gray, picture_gray );
-    int label = -1;
+    label = -1;
     double confidence = 0;
     int centerx = WIDTH/2, centery = HEIGHT/2;
+
+    //MainWindow * win = (MainWindow *) qApp::activeWindow();
 
     //show it before detecting as well
     // display resized picture, but with natural aspect ratio
@@ -433,7 +443,7 @@ Mat FaceRec::predict_from_picture(Mat picture) {
     cerr<<"height "<<size.height<<" width "<<size.width<<endl;
     resize(picture, picture_resized, size);
     imshow("Imaginea incarcata", picture_resized);
-    waitKey(0);
+    //waitKey(0);
 
     cout<<"Detecting face..."<<endl;
     picture_gray = detect(picture_gray, centerx, centery);
@@ -444,14 +454,25 @@ Mat FaceRec::predict_from_picture(Mat picture) {
 
     cout<<"Predicting class..."<<endl;
     predict(picture_gray, label, confidence);
-    cout<<"Predicted class: "<<(label==0?"female":"male")<<" ("<<label<<")"<<endl; 
+    cout<<"Predicted class: "<<(label==0?"female":"male")<<" ("<<label<<")"<<endl;
 
-    while (1) {
+    std::string gender;
+    if (label == 0)
+        gender = "femeie";
+    else
+        gender = "barbat";
+
+    putText(picture, gender, cvPoint(picture.cols/2-10,picture.rows-10),
+        FONT_HERSHEY_COMPLEX_SMALL, 0.8, cvScalar(200,200,250), 1, CV_AA);
+
+
+    //while (1) {
         resize(picture, picture, size);
         imshow("Imaginea incarcata", picture);
+        waitKey(0);
         //int c = waitKey(30);
         //if( (char)c == 'q' ) { break; }
-    }
+    //}
 
     return picture;
 }

@@ -67,7 +67,7 @@ class FaceRec {
         void detect_and_predict_all();
 
         cv::Mat predict_from_webcam();
-        cv::Mat predict_from_picture(cv::Mat);
+        cv::Mat predict_from_picture(cv::Mat, int&);
 
         virtual void load(const char*) = 0;
         virtual void save(const char*) = 0;
