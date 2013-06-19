@@ -5,6 +5,8 @@
 #include "opencv2/highgui/highgui.hpp"
 #include <opencv2/ml/ml.hpp>
 
+#include "mainwindow.h"
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -418,6 +420,7 @@ Mat FaceRec::predict_from_webcam(){
 
 Mat FaceRec::predict_from_picture(Mat picture) {
     Mat picture_gray, picture_resized;
+    //picture_gray = picture;
     cvtColor( picture, picture_gray, CV_BGR2GRAY );
     equalizeHist( picture_gray, picture_gray );
     int label = -1;
@@ -446,8 +449,8 @@ Mat FaceRec::predict_from_picture(Mat picture) {
     while (1) {
         resize(picture, picture, size);
         imshow("Imaginea incarcata", picture);
-        int c = waitKey(30);
-        if( (char)c == 'q' ) { break; }
+        //int c = waitKey(30);
+        //if( (char)c == 'q' ) { break; }
     }
 
     return picture;
