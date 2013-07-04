@@ -377,7 +377,7 @@ Mat FaceRec::predict_from_webcam(){
     Mat frame;
     Mat frame_gray;
     capture = cvCaptureFromCAM( -1 );
-    int centerx = WIDTH/2, centery = HEIGHT/2;
+    int centerx = 0, centery = 0;
     if( capture ) {
         while (true)
         {
@@ -393,8 +393,11 @@ Mat FaceRec::predict_from_webcam(){
             if( !frame.empty() ) {
                 frame_gray = detect(frame_gray, centerx, centery);
                 Point center(centerx, centery);
-                ellipse( frame, center, Size(WIDTH/2,HEIGHT/2), 0, 0, 360, Scalar( 255, 0, 255 ), 2, 8, 0 );
-                predict(frame_gray, label, confidence);
+                // only if something was detected
+                if (centerx != 0 || centery != 0) {
+                    ellipse( frame, center, Size(WIDTH/2,HEIGHT/2), 0, 0, 360, Scalar( 255, 0, 255 ), 2, 8, 0 );
+                    predict(frame_gray, label, confidence);
+                }
                 cout<<"Predicted class: "<<(label==0?"female":"male")<<" ("<<label<<")"<<endl; 
             }
             else {
@@ -409,7 +412,9 @@ Mat FaceRec::predict_from_webcam(){
             if (label == 0)
                 gender = "femeie";
             else
-                gender = "barbat";
+                if (label == 1)
+                    gender = "barbat";
+                else gender = "";
 
             putText(frame, gender, cvPoint(frame.cols/2-10,frame.rows-10),
                 FONT_HERSHEY_COMPLEX_SMALL, 0.8, cvScalar(200,200,250), 1, CV_AA);
@@ -434,6 +439,7 @@ Mat FaceRec::predict_from_picture(Mat picture, int& label) {
     label = -1;
     double confidence = 0;
     int centerx = WIDTH/2, centery = HEIGHT/2;
+    namedWindow("Imaginea incarcata");
 
     //MainWindow * win = (MainWindow *) qApp::activeWindow();
 
